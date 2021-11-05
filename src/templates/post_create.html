@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block title %}
+  {% if 'create' in request.path %}
+     Creer article
+  {% else %}
+     Modifier article
+  {% endif %} 
+{% endblock title %}
+
+{% block content %}
+
+
+{% if user.is_authenticated %}
+  
+
+<div class="col-4 offset-4 mb-5 mt-5">
+
+
+<h3>{{ titre }} article</h3>
+{{ form.media }}
+<form method="POST" action="." enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form }}
+    <button class="btn btn-primary" type="submit">Submit</button>
+</form>
+
+</div> 
+
+
+{% else %}
+
+  <div class="container">
+    <p>Vous n'êtes pas autorisé(e) à accéder à cette page !</p>
+  </div>
+  
+{% endif %}
+
+{% endblock content %}

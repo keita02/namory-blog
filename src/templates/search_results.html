@@ -1,0 +1,143 @@
+{% extends "base.html" %}
+
+{% block title %}
+  Recherche
+{% endblock title %}
+{% load static %}
+
+
+{% block content %}
+  
+
+{% if queryset %}
+  
+
+
+<div class="container text-center mt-4">
+
+<h2 class="text-center">R&eacute;sultats de votre recherche</h2>
+
+  </div>
+
+
+    <div class="container">
+      <div class="row">
+        <!-- Latest Posts -->
+        <main class="posts-listing col-lg-8"> 
+          <div class="container">
+            <div class="row">
+              <!-- post -->
+
+              {% for post in queryset %}
+                
+
+              <div class="post col-xl-6">
+                <div class="post-thumbnail">
+                  <a href=" {{ post.get_absolute_url }} "><img src=" {{ post.post_image.url }} " alt="..." class="img-fluid" style="width:100%; height:auto;">
+                  </a>
+                </div>
+                <div class="post-details">
+                  <div class="post-meta d-flex justify-content-between">
+                    <div class="category">
+                      {% for cat in post.categories.all  %}
+                        <a href=" {{ post.get_absolute_url }} "> {{ cat }} </a>
+                      {% endfor %}
+                    </div>
+                  </div><a href=" {{ post.get_absolute_url }} ">
+                    <h3 class="h4"> {{ post.title|lower|safe }} </h3></a>
+                  <p class="text-muted"> {{ post.overview|slice:":200"|safe}} </p>
+                  <footer class="post-footer d-flex align-items-center"><a href="#" class="author d-flex align-items-center flex-wrap">
+                      <div class="avatar"><img src=" {{ post.author.profile_pic.url }} " alt="..." class="img-fluid"></div>
+                      <div class="title"><span> {{ post.author.user.last_name }} </span></div></a>
+                    <div class="date"><i class="icon-clock"></i> {{ post.timestamp|timesince}}  </div>
+                    <div class="comments meta-last"><i class="icon-comment"></i> {{ post.comment_count }} </div>
+                  </footer>
+                </div>
+              </div>
+
+            {% endfor %}
+
+            </div>
+            <!-- Pagination -->
+<!--             <nav aria-label="Page navigation example">
+              <ul class="pagination pagination-template d-flex justify-content-center">
+
+                {% if queryset.has_previous %}
+                  
+                <li class="page-item"><a href="?{{ page_request_var}}={{queryset.previous_page_number}}" class="page-link"> <i class="fa fa-angle-left"></i></a></li>
+
+                {% endif %}
+
+                <li class="page-item"><a href="?{{ page_request_var}}={{queryset.number}}" class="page-link active"> {{ queryset.number }} </a></li>
+
+                {% if queryset.has_next %}
+                  
+                <li class="page-item"><a href="?{{ page_request_var}}={{queryset.next_page_number}}" class="page-link"> <i class="fa fa-angle-right"></i></a></li>
+
+                {% endif %}
+
+              </ul>
+            </nav> -->
+          </div>
+        </main>
+
+
+
+
+      </div>
+    </div>
+
+  {# script section #}
+
+{% else %}
+
+<style>
+    .alert {
+  left: 0;
+  margin: auto; // Centers alert component
+  position: absolute; // So that it will display relative to the entire page
+  right: 0;
+  text-align: center; // Centers 'Alert Test' text
+  top: 1em;
+  width: 80%;
+  z-index: 1; // Displays over app and bootstrap Navbar
+}
+
+.text-center{
+  font-size: 30px;
+}
+
+
+</style>
+
+
+<div class="container">
+  <div class="row">
+        <!-- Latest Posts -->
+        <main class="posts-listing col"> 
+          <div class="container">
+            <div class="row">
+
+              <div class="alert alert-warning" style="width: 80%;" role="alert">
+                  <p class="text-center">
+                  <strong>Aucun resultat ne correspond à votre recherche</strong>      <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                  </p>
+              </div> 
+
+            </div>
+          </div>
+      </main>
+  </div>
+</div>
+
+{% endif %}
+  
+{% endblock content %}
+
+
+
+
+
+
+
+

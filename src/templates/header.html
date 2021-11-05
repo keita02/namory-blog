@@ -1,0 +1,146 @@
+{% load static %}
+
+
+    <header class="header">
+      <!-- Main Navbar-->
+      <nav class="navbar navbar-expand-lg">
+        <div class="search-area">
+          <div class="search-area-inner d-flex align-items-center justify-content-center">
+            <div class="close-btn"><i class="icon-close"></i></div>
+            <div class="row d-flex justify-content-center">
+              <div class="col-md-8">
+                <form action="{% url 'search' %}">
+                  <div class="form-group">
+                    <input type="search" name="q" id="search" placeholder="Que cherchez-vous?">
+                    <button type="submit" class="submit"><i class="icon-search-1"></i></button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="container">
+          <!-- Navbar Brand -->
+          <div class="navbar-header d-flex align-items-center justify-content-between">
+
+             <a href="{% url 'home' %}" class="navbar-brand">Blog</a>
+
+
+             <button type="button" data-toggle="collapse" data-target="#navbarcollapse" aria-controls="navbarcollapse" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler"><span></span><span></span><span></span></button>
+
+          </div>
+          <!-- Navbar Menu -->
+          <div id="navbarcollapse" class="collapse navbar-collapse">
+            <ul class="navbar-nav ml-auto">
+
+              <li class="nav-item">
+                  <a
+
+                  {% if '/' == request.path %}
+                    class="nav-link active"
+                  {% else %}
+                    class="nav-link "
+                  {% endif %}
+
+                   href="{% url 'home' %}" >Accueil
+
+                 </a>
+              </li>
+
+              
+              <li class="nav-item">
+                <a
+
+                {% if 'blog' in request.path %}
+                   class="nav-link active"
+                {% else %}
+                     class="nav-link"
+                {% endif %}
+
+                 href="{% url 'blog' %}">Articles
+
+                </a>
+              </li> 
+
+              {% if request.user.is_authenticated %}
+                
+
+              <li class="nav-item">
+                
+                <a
+                  {% if 'accounts:logout' in request.path %}
+                     class = "nav-link active"
+                  {% else %}
+                     class ="nav-link"
+                  {% endif %}
+
+                 href="{% url 'accounts:logout' %}"> Déconnection
+                  
+                </a>
+
+              </li>  
+
+              {% else %}
+                
+              <li class="nav-item">
+                
+                <a
+                  {% if 'accounts:login' in request.path %}
+                     class = "nav-link active"
+                  {% else %}
+                     class ="nav-link"
+                  {% endif %}
+
+                 href="{% url 'accounts:login' %}">Connection
+                  
+                </a>
+
+              </li>
+
+                <li class="nav-item">
+                
+                <a
+                  {% if 'accounts:register' in request.path %}
+                     class = "nav-link active"
+                  {% else %}
+                     class ="nav-link"
+                  {% endif %}
+
+                 href="{% url 'accounts:register' %}">Inscription
+                  
+                </a>
+
+              </li>
+
+              {% endif %}
+
+              {% if request.user.is_staff %}
+                <li class="nav-item">
+                
+                <a
+                  {% if 'post-create' in request.path %}
+                     class = "nav-link active"
+                  {% else %}
+                     class ="nav-link"
+                  {% endif %}
+
+                 href="{% url 'post-create' %}"> Créer
+                  
+                </a>
+
+              </li>
+              {% endif %}
+
+
+
+  
+           <span></span>
+               <div class="navbar-text"><a href="#" class="search-btn"><i class="icon-search-1"></i></a></div>
+
+          </ul>
+
+
+          </div>
+        </div>
+      </nav>
+    </header>
